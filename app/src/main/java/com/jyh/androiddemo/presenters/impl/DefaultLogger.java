@@ -2,9 +2,17 @@ package com.jyh.androiddemo.presenters.impl;
 
 import android.util.Log;
 
-import com.jyh.androiddemo.presenters.IBasePresenter;
+import androidx.annotation.NonNull;
 
-public class DefaultPresenter implements IBasePresenter {
+import com.jyh.androiddemo.presenters.IBaseLogger;
+
+public class DefaultLogger implements IBaseLogger {
+
+    private String tag;
+
+    public DefaultLogger(@NonNull String tag){
+        this.tag = tag;
+    }
 
     @Override
     public void debug(String str) {
@@ -33,41 +41,6 @@ public class DefaultPresenter implements IBasePresenter {
 
     @Override
     public String getTag() {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-
-    }
-
-    @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onStop() {
-
-    }
-
-    @Override
-    public void onRestart() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+        return tag;
     }
 }

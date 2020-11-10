@@ -1,6 +1,6 @@
 package com.jyh.androiddemo.presenters;
 
-public interface IBasePresenter {
+public interface IBasePresenter extends IBaseLogger {
 
 	void onCreate();
 
