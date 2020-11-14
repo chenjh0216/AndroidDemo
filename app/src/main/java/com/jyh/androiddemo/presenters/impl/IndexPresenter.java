@@ -1,89 +1,61 @@
 package com.jyh.androiddemo.presenters.impl;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
 import android.widget.Button;
 
 import com.jakewharton.rxbinding4.view.RxView;
 import com.jyh.androiddemo.R;
+import com.jyh.androiddemo.entity.wx.AccessTokenEntity;
+import com.jyh.androiddemo.net.apis.wx.WxApis;
+import com.jyh.androiddemo.net.apis.wx.WxServices;
 import com.jyh.androiddemo.presenters.IIndexPresenter;
-import com.jyh.androiddemo.services.MyVpnService;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import kotlin.Unit;
+
+import static com.jyh.androiddemo.net.apis.wx.WxServices.WxConstants.APP_ID;
+import static com.jyh.androiddemo.net.apis.wx.WxServices.WxConstants.APP_SECRET;
+import static com.jyh.androiddemo.net.apis.wx.WxServices.WxConstants.GRANT_TYPE;
 
 public class IndexPresenter extends DefaultPresenter implements IIndexPresenter {
 
     private int mLayoutId;
     private Activity mActivity;
 
-    private Button mStartServiceBtn;
-    private Button mStopServiceBtn;
+    private Button mloginBtn;
 
-    public IndexPresenter(Activity mActivity, int mLayoutId){
+    private WxApis wxApis;
+
+    public IndexPresenter(Activity mActivity, int mLayoutId) {
         this.mLayoutId = mLayoutId;
         this.mActivity = mActivity;
+        this.wxApis = WxServices.getInstance();
 
-        mStartServiceBtn = mActivity.findViewById(R.id.startServiceBtn);
-        mStopServiceBtn = mActivity.findViewById(R.id.stopServiceBtn);
-        RxView.clicks(mStartServiceBtn)
+        mloginBtn = mActivity.findViewById(R.id.loginBtn);
+        RxView.clicks(mloginBtn)
                 .throttleFirst(3, TimeUnit.SECONDS)
-                .subscribe(new Consumer<Unit>() {
+                .flatMap((Function<Unit, ObservableSource<AccessTokenEntity>>) unit -> wxApis.token(GRANT_TYPE, APP_ID, APP_SECRET))
+                .subscribe(new Consumer<AccessTokenEntity>() {
                     @Override
-                    public void accept(Unit unit) throws Throwable {
-                        debug("startVpnService");
-                        startVpnService();
+                    public void accept(AccessTokenEntity entity) throws Throwable {
+                        debug("access token : " + entity.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
-                        error("startVpnService");
+                        error(throwable.toString());
                     }
-                }, new Action(){
+                }, new Action() {
                     @Override
                     public void run() throws Throwable {
 
                     }
                 });
-        RxView.clicks(mStopServiceBtn)
-                .throttleFirst(3, TimeUnit.SECONDS)
-                .subscribe(new Consumer<Unit>() {
-                    @Override
-                    public void accept(Unit unit) throws Throwable {
-                        debug("stopVpnService");
-                        stopVpnService();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Throwable {
-                        error("stopVpnService");
-                    }
-                }, new Action(){
-                    @Override
-                    public void run() throws Throwable {
-
-                    }
-                });
-    }
-
-    @Override
-    public void startVpnService() {
-        Intent i = new Intent(mActivity, MyVpnService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mActivity.startForegroundService(i);
-        } else {
-            mActivity.startService(i);
-        }
-    }
-
-    @Override
-    public void stopVpnService() {
-        Intent i = new Intent(mActivity, MyVpnService.class);
-        mActivity.stopService(i);
     }
 
     @Override

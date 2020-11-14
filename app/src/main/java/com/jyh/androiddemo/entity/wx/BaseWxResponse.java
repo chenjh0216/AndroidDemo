@@ -5,6 +5,10 @@ public class BaseWxResponse {
     private int errcode;
     private String errmsg;
 
+    public boolean isAvailable(){
+        return getErrcode() == 0;
+    }
+
     public int getErrcode() {
         return errcode;
     }
