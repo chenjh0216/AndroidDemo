@@ -92,7 +92,17 @@
         isAsync ? new CallEnqueueObservable<>(call) : new CallExecuteObservable<>(call);isAsync ? new CallEnqueueObservable<>(call) : new CallExecuteObservable<>(call);
     ```
     CallEnqueueObservable方法调用call.enqueue(callback);CallExecuteObservable调用call.execute()。
-6. 
+6. Call的实现类OkHttpCall，createRawCall创建一个RealCall，RealCall.execute()，通过 client.dispatcher.executed(this)添加到队列；
+    然后InterceptorChain获取response;
+7. ![okhttp-interceptors](resources/md/okhttp-interceptors.png)
+   - RetryAndFollowUpInterceptor,This interceptor recovers from failures and follows redirects as necessary.
+   - BridgeInterceptor,Bridges from application code to network code. First it builds a network request from a user request. Then it proceeds to call the network. Finally it builds a user response from the network response.
+   - CacheInterceptor,Serves requests from the cache and writes responses to the cache.
+   - ConnectInterceptor,Opens a connection to the target server and proceeds to the next interceptor. The network might be used for the returned response, or to validate a cached response with a conditional GET.
+   - OkHttpClient.interceptors,
+   - OkHttpClient.networkInterceptors,
+   - CallServerInterceptor,This is the last interceptor in the chain. It makes a network call to the server.
+8. 
 
 
 
