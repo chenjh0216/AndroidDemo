@@ -18,4 +18,9 @@ public class AccessTokenEntity extends BaseWxResponse {
     public boolean isExpired(){
         return (System.currentTimeMillis() - createdTimestamp) >= expires_in;
     }
+
+    @Override
+    public boolean isAvailable() {
+        return super.isAvailable() && access_token != null && !access_token.equals("") && !isExpired();
+    }
 }
