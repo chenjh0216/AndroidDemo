@@ -9,4 +9,12 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="prompt_app_id">app id</string>
+    <string name="prompt_secret">secret</string>
+    <string name="prompt_env">env</string>
+    <string name="default_app_id">wx838a480b8c4bc2c8</string>
+    <string name="default_app_secret">b7596b6fafbf14cf9a6a2c6c1c3454d4</string>
+    <string name="default_env">pro-hml29</string>
+
 </resources>
