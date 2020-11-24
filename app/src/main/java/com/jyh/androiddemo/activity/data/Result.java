@@ -33,7 +33,7 @@ public class Result<T> {
         }
     }
 
-    // Error sub-class
+    // Err or sub-class
     public final static class Error extends Result {
         private Exception error;
 

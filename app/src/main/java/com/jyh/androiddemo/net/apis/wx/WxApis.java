@@ -10,6 +10,10 @@ public interface WxApis {
 
     public static final String baseWxUrl = "https://api.weixin.qq.com/";
 
+    boolean hasLogin();
+
+    void logout();
+
     /**
      * 获取access token
      */

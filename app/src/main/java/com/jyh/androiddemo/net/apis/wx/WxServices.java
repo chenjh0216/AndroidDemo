@@ -12,6 +12,16 @@ import io.reactivex.rxjava3.functions.Function;
 public class WxServices implements WxApis {
 
     @Override
+    public boolean hasLogin() {
+        return mAccessToken != null && mAccessToken.isAvailable();
+    }
+
+    @Override
+    public void logout() {
+
+    }
+
+    @Override
     public Observable<AccessTokenEntity> token(String grantType, String appId, String secret) {
         if (mAccessToken != null && mAccessToken.isAvailable()){
             return Observable.just(mAccessToken);
@@ -50,11 +60,11 @@ public class WxServices implements WxApis {
         }
     }
 
+
     private AccessTokenEntity mAccessToken;
+    private final WxApis wxApis;
 
     private static volatile WxServices instance;
-
-    private final WxApis wxApis;
 
     public static WxApis getInstance(){
         if (instance == null){

@@ -1,18 +1,17 @@
 package com.jyh.androiddemo.activity.ui.login;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jyh.androiddemo.R;
+import com.jyh.androiddemo.activity.data.Result;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,24 +30,20 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
-        envEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
+        loginViewModel.getLoginResponseMutableLiveData().observe(this, new Observer<Result>() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    //loginViewModel.login(usernameEditText.getText().toString(),
-                    //        passwordEditText.getText().toString());
-                }
-                return false;
+            public void onChanged(Result result) {
+
             }
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadingProgressBar.setVisibility(View.VISIBLE);
-                //loginViewModel.login(usernameEditText.getText().toString(),
-                //        passwordEditText.getText().toString());
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                loginViewModel.login(appidEditText.getText().toString()
+                        ,secretEditText.getText().toString()
+                        ,envEditText.getText().toString());
             }
         });
     }
