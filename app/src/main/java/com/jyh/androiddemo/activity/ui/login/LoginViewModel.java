@@ -1,10 +1,14 @@
 package com.jyh.androiddemo.activity.ui.login;
 
+import com.jyh.androiddemo.activity.data.Result;
+import com.jyh.androiddemo.entity.wx.AccessTokenEntity;
+import com.jyh.androiddemo.net.apis.wx.WxServices;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.jyh.androiddemo.activity.data.Result;
-import com.jyh.androiddemo.net.apis.wx.WxServices;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class LoginViewModel extends ViewModel {
 
@@ -19,11 +23,25 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String appId, String secret, String env){
-        if (WxServices.getInstance().hasLogin()){
+      	WxServices.getInstance().token(WxServices.WxConstants.GRANT_TYPE, appId, secret)
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new Consumer<AccessTokenEntity>() {
+			  @Override
+			  public void accept(AccessTokenEntity accessTokenEntity) throws Throwable {
+				//success
+			  }
+			},new Consumer<Throwable>(){
+			  @Override
+			  public void accept(Throwable throwable) throws Throwable {
+				//error
+			  }
+			}, new Action(){
 
-        } else {
-            WxServices.getInstance().token(WxServices.WxConstants.GRANT_TYPE, appId, secret);
-        }
+			  @Override
+			  public void run() throws Throwable {
+				//complete
+			  }
+			});
     }
 
     public void logout(){

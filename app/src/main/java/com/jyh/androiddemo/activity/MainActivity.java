@@ -1,11 +1,12 @@
 package com.jyh.androiddemo.activity;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.jyh.androiddemo.R;
 import com.jyh.androiddemo.presenters.IIndexPresenter;
 import com.jyh.androiddemo.presenters.impl.IndexPresenter;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        presenter.onPause();
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
+        presenter.onDestroy();
         super.onDestroy();
     }
 }

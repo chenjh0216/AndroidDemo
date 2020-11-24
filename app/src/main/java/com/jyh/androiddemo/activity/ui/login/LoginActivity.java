@@ -6,12 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.jyh.androiddemo.R;
+import com.jyh.androiddemo.activity.data.Result;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.jyh.androiddemo.R;
-import com.jyh.androiddemo.activity.data.Result;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,7 +33,11 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.getLoginResponseMutableLiveData().observe(this, new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
+                if (result instanceof Result.Success){
 
+                } else if (result instanceof Result.Error){
+
+                }
             }
         });
 
