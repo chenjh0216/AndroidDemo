@@ -23,4 +23,12 @@ public class AccessTokenEntity extends BaseWxResponse {
     public boolean isAvailable() {
         return super.isAvailable() && access_token != null && !access_token.equals("") && !isExpired();
     }
+
+    @Override
+    public String toString() {
+        return "AccessTokenEntity{" +
+                "access_token='" + access_token + '\'' +
+                ", expires_in=" + expires_in +
+                '}';
+    }
 }

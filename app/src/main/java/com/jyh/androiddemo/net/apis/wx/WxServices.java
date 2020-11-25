@@ -18,7 +18,9 @@ public class WxServices implements WxApis {
 
     @Override
     public void logout() {
-
+        synchronized (this){
+            mAccessToken = null;
+        }
     }
 
     @Override
