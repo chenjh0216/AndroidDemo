@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidDemo</string>
+    <string name="app_name">WxMiniProgramToolkit</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -16,5 +16,11 @@
     <string name="default_app_id">wx838a480b8c4bc2c8</string>
     <string name="default_app_secret">b7596b6fafbf14cf9a6a2c6c1c3454d4</string>
     <string name="default_env">pro-hml29</string>
+    <string name="title_activity_index">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- task Affinity -->
 
 </resources>

@@ -1,5 +1,6 @@
 package com.jyh.androiddemo.activity.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jakewharton.rxbinding4.view.RxView;
 import com.jyh.androiddemo.R;
 import com.jyh.androiddemo.activity.data.Result;
+import com.jyh.androiddemo.activity.ui.index.IndexActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,11 +42,13 @@ public class LoginActivity extends BaseAppCompatActivity {
             public void onChanged(Result result) {
                 if (result instanceof Result.Success) {
                     debug(((Result.Success) result).getData().toString());
+                    startIndex();
                 } else if (result instanceof Result.Error) {
                     error(((Result.Error) result).getError().toString());
                 }
                 loadingProgressBar.setVisibility(View.GONE);
             }
+
         });
 
         RxView.clicks(loginButton)
@@ -67,6 +71,12 @@ public class LoginActivity extends BaseAppCompatActivity {
 
                     }
                 });
+    }
+
+    private void startIndex(){
+        Intent i = new Intent(this, IndexActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
