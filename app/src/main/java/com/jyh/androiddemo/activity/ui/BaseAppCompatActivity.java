@@ -1,4 +1,4 @@
-package com.jyh.androiddemo.activity.ui.login;
+package com.jyh.androiddemo.activity.ui;
 
 import android.util.Log;
 

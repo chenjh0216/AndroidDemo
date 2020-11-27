@@ -102,7 +102,8 @@
    - OkHttpClient.interceptors,
    - OkHttpClient.networkInterceptors,
    - CallServerInterceptor,This is the last interceptor in the chain. It makes a network call to the server.
-8. 
+8. ![retrofit请求注解](resources/md/retrofit请求注解.png)
+9. retrofit interface @Field标签需要跟@FormUrlEncoded一起使用
 
 
 

@@ -1,14 +1,20 @@
 package com.jyh.androiddemo.net.apis.wx;
 
 import com.jyh.androiddemo.entity.wx.AccessTokenEntity;
+import com.jyh.androiddemo.entity.wx.WxCollectionResponse;
 
 import io.reactivex.rxjava3.core.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface WxApis {
 
     public static final String baseWxUrl = "https://api.weixin.qq.com/";
+
+    public static final int DEFAULT_LIMIT = 10;
 
     boolean hasLogin();
 
@@ -65,7 +71,13 @@ public interface WxApis {
     /**
      * 获取集合信息
      */
-    public static final String DatabaseCollectionGet = "/tcb/databasecollectionget?access_token=ACCESS_TOKEN";
+    public static final String DatabaseCollectionGet = "/tcb/databasecollectionget";
+
+    @POST(DatabaseCollectionGet)
+    Observable<WxCollectionResponse> fetchCollections(String env, int offset);
+
+    @POST(DatabaseCollectionGet)
+    Observable<WxCollectionResponse> fetchCollections(@Query("access_token") String access_token, @Body RequestBody body);
 
     /**
      * 添加记录

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jakewharton.rxbinding4.view.RxView;
 import com.jyh.androiddemo.R;
 import com.jyh.androiddemo.activity.data.Result;
+import com.jyh.androiddemo.activity.ui.BaseAppCompatActivity;
 import com.jyh.androiddemo.activity.ui.index.IndexActivity;
 
 import java.util.concurrent.TimeUnit;
