@@ -1,4 +1,4 @@
-package com.jyh.androiddemo.entity.wx;
+package com.jyh.androiddemo.exception;
 
 public class AccessTokenNotAvailableException extends Exception {
     public AccessTokenNotAvailableException(String token_is_not_available) {

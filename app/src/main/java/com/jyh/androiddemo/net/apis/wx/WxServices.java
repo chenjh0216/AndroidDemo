@@ -1,7 +1,7 @@
 package com.jyh.androiddemo.net.apis.wx;
 
 import com.jyh.androiddemo.entity.wx.AccessTokenEntity;
-import com.jyh.androiddemo.entity.wx.AccessTokenNotAvailableException;
+import com.jyh.androiddemo.exception.AccessTokenNotAvailableException;
 import com.jyh.androiddemo.entity.wx.WxCollectionResponse;
 import com.jyh.androiddemo.net.retrofit.RetrofitService;
 
