@@ -28,7 +28,6 @@ public class WxCollectionRepository {
     private ArrayMap<String,WxCollectionResponse> collectionResponseArrayMap;
 
     public Observable<WxCollectionResponse> fetchCollections(String envPro, int offset) {
-
         return WxServices.getInstance().fetchCollections(envPro,offset);
     }
 }

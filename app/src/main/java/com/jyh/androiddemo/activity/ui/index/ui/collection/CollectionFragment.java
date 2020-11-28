@@ -13,10 +13,13 @@ import com.jyh.androiddemo.R;
 import com.jyh.androiddemo.activity.ui.BaseFragment;
 import com.jyh.androiddemo.entity.wx.WxCollectionResponse;
 
+import static com.jyh.androiddemo.net.apis.wx.WxServices.WxConstants.ENV_PRO;
+
 
 public class CollectionFragment extends BaseFragment {
 
     private CollectionViewModel collectionViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class CollectionFragment extends BaseFragment {
                 debug("wxCollectionResponse : " + wxCollectionResponse);
             }
         });
-        collectionViewModel.fetch(1);
+        collectionViewModel.fetch(ENV_PRO,1);
 
         return root;
     }

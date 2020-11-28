@@ -14,8 +14,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 
-import static com.jyh.androiddemo.net.apis.wx.WxServices.WxConstants.ENV_PRO;
-
 public class CollectionViewModel extends ViewModel{
 
     private MutableLiveData<WxCollectionResponse> collectionResponseMutableLiveData;
@@ -26,10 +24,10 @@ public class CollectionViewModel extends ViewModel{
         collectionResponseMutableLiveData = new MutableLiveData<>();
     }
 
-    public void fetch(int page){
+    public void fetch(String env, int page){
         int skip = (page - 1 ) * WxServices.DEFAULT_LIMIT;
         int offset = skip < 0 ? 0 : skip;
-        wxCollectionRepository.fetchCollections(ENV_PRO, offset)
+        wxCollectionRepository.fetchCollections(env, offset)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WxCollectionResponse>() {
                     @Override
