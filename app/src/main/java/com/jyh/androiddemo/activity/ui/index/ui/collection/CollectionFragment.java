@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jyh.androiddemo.R;
 import com.jyh.androiddemo.activity.ui.BaseFragment;
@@ -20,16 +22,23 @@ public class CollectionFragment extends BaseFragment {
 
     private CollectionViewModel collectionViewModel;
 
+    private RecyclerView mRecyclerView;
+    private CollectionAdapter mAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         collectionViewModel =
                 new ViewModelProvider(this).get(CollectionViewModel.class);
         View root = inflater.inflate(R.layout.fragment_collection, container, false);
+        mRecyclerView = root.findViewById(R.id.collectionRecyclerView);
+        mAdapter = new CollectionAdapter();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
         collectionViewModel.getCollectionResponseLiveData().observe(getViewLifecycleOwner(), new Observer<WxCollectionResponse>() {
             @Override
             public void onChanged(WxCollectionResponse wxCollectionResponse) {
                 debug("wxCollectionResponse : " + wxCollectionResponse);
+                mAdapter.setCollections(wxCollectionResponse);
             }
         });
         collectionViewModel.fetch(ENV_PRO,1);
